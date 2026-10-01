@@ -9,11 +9,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
-<header>
-  <h1>🏥 병원 노쇼(No-show) 분석 대시보드</h1>
-  <p>총 예약 110,521건 · SQLite + Python API 기반</p>
+<header style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+  <div>
+    <h1>🏥 병원 노쇼(No-show) 분석 대시보드</h1>
+    <p>총 예약 110,521건 · SQLite + Python API 기반</p>
+  </div>
+  <button class="btn-total-insight" onclick="toggleTotalInsight()" style="background:#0F3040; color:#ffffff; border:2px solid #0F3040; padding:10px 20px; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.2s ease; box-shadow:0 4px 12px rgba(15,48,64,0.2);">
+    📋 통합 데이터 분석 보고서 보기
+  </button>
 </header>
 <main>
+  <!-- Integrated Total Data Analysis Collapsible Panel -->
+  <section id="totalInsightPanel" style="display:none; margin-bottom:20px; padding:20px; background:#ffffff; border:2.5px solid #0F3040; border-radius:16px; box-shadow:0 6px 18px rgba(15,48,64,0.1);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:2px solid #e2e8f0; padding-bottom:10px;">
+      <h2 style="margin:0; font-size:19px; color:#0F3040; display:flex; align-items:center; gap:8px;">
+        📑 AI 병원 노쇼 데이터 통합 종합 분석 보고서
+      </h2>
+      <span style="font-size:13px; color:#64748b; font-weight:600;">데이터 건수: 110,521건 전체 전수 검증</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
+      <div style="background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #cbd5e1;">
+        <b style="color:#0F3040; font-size:15px; display:block; margin-bottom:6px;">📌 1. 전체 노쇼 현황 및 기조 (20.2%)</b>
+        총 110,521건의 병원 예약 중 22,319건의 노쇼가 발생하여 <b>평균 노쇼율 20.2%</b>를 기록했습니다. 환자 5명 중 1명이 예약 후 내원하지 않는 구조적 손실입니다.
+      </div>
+
+      <div style="background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #cbd5e1;">
+        <b style="color:#dc2626; font-size:15px; display:block; margin-bottom:6px;">🎯 2. 최우선 관리 변수: 선행일수 (리드타임)</b>
+        당일 예약은 노쇼율이 <b>4.7%</b>에 불과하나, 15~30일 전 예약은 <b>32.6%</b>로 대폭 상승하여 약 7배의 노쇼 차이가 발생합니다. 예약 간격을 줄이는 것이 노쇼 방지의 1순위 솔루션입니다.
+      </div>
+
+      <div style="background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #cbd5e1;">
+        <b style="color:#2563eb; font-size:15px; display:block; margin-bottom:6px;">👥 3. 연령대별 세그먼트 특성</b>
+        13~19세 청소년층이 <b>26.0%</b>로 노쇼율이 가장 높은 취약 계층이며, 60세 이상 고령층은 <b>15.3%</b>로 병원 예약 준수율이 가장 높습니다.
+      </div>
+
+      <div style="background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #cbd5e1;">
+        <b style="color:#d97706; font-size:15px; display:block; margin-bottom:6px;">🔔 4. SMS 안내 효과와 착시 (심슨의 역설)</b>
+        단순 집계 시 SMS 수신군의 노쇼율이 높게 보이나, 이는 SMS가 선행일수가 길어 원래 노쇼율이 높은 환자에 몰렸기 때문입니다. 동일 선행일수로 통제 시 SMS 발송군의 노쇼율이 확연히 감소합니다.
+      </div>
+
+      <div style="background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #cbd5e1;">
+        <b style="color:#059669; font-size:15px; display:block; margin-bottom:6px;">📅 5. 요일 및 일자별 변동 패턴</b>
+        수요일(23.3%) 주중 노쇼율이 피크를 형성하며, 주 5일 이동평균선(MA5)은 19.5% ~ 21.0%의 안정된 밴드를 유지합니다.
+      </div>
+
+      <div style="background:#f8fafc; padding:14px; border-radius:10px; border:1px solid #cbd5e1;">
+        <b style="color:#7c3aed; font-size:15px; display:block; margin-bottom:6px;">💡 6. 종합 개선 제안</b>
+        1) 14일 이상 장기 선행 예약자 대상 집중 SMS/전화 리마인드 2) 청소년 타겟 리마인더 알림 강화 3) 당일/단기 예약 슬롯 비중 확대를 권장합니다.
+      </div>
+    </div>
+  </section>
+
   <section class="kpis" id="kpis"></section>
 
   <!-- Cleaned Stock-style Chart Title & Labels with Analysis Button -->
@@ -24,7 +71,7 @@
           📈 일자별 노쇼율 & 예약 건수 추세 <small style="font-size:13px; color:#64748b;">(5일 이동평균선 연동)</small>
         </h2>
         <button class="btn-insight" onclick="toggleDailyInsight()" style="background:#2563eb; color:#ffffff; border:none; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 0.2s ease; box-shadow:0 2px 6px rgba(37,99,235,0.25);">
-          💡 AI 데이터 분석 보기
+          💡 일자별 차트 분석 보기
         </button>
       </div>
       <div style="display:flex; gap:12px; font-size:13px; font-weight:600;">
