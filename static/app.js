@@ -6,6 +6,16 @@ Chart.defaults.color = style.getPropertyValue('--sub').trim() || '#667085';
 Chart.defaults.font.family = 'Pretendard, Malgun Gothic, sans-serif';
 const pct = {callback: v => v + '%'};
 
+function toggleDailyInsight() {
+  const panel = document.getElementById('dailyInsightPanel');
+  if (!panel) return;
+  if (panel.style.display === 'none' || panel.style.display === '') {
+    panel.style.display = 'block';
+  } else {
+    panel.style.display = 'none';
+  }
+}
+
 function bar(id, labels, data, color, opts = {}) {
   const yTicksOption = opts.font18 ? {
     font: { size: 18, weight: 'bold' },

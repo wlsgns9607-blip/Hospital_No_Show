@@ -16,12 +16,17 @@
 <main>
   <section class="kpis" id="kpis"></section>
 
-  <!-- Cleaned Stock-style Chart Title & Labels -->
+  <!-- Cleaned Stock-style Chart Title & Labels with Analysis Button -->
   <section class="card wide stock-card">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-      <h2 style="margin:0; font-size:20px; color:#010736; display:flex; align-items:center; gap:8px;">
-        📈 일자별 노쇼율 & 예약 건수 추세 <small style="font-size:13px; color:#64748b;">(5일 이동평균선 연동)</small>
-      </h2>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <h2 style="margin:0; font-size:20px; color:#010736; display:flex; align-items:center; gap:8px;">
+          📈 일자별 노쇼율 & 예약 건수 추세 <small style="font-size:13px; color:#64748b;">(5일 이동평균선 연동)</small>
+        </h2>
+        <button class="btn-insight" onclick="toggleDailyInsight()" style="background:#2563eb; color:#ffffff; border:none; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 0.2s ease; box-shadow:0 2px 6px rgba(37,99,235,0.25);">
+          💡 AI 데이터 분석 보기
+        </button>
+      </div>
       <div style="display:flex; gap:12px; font-size:13px; font-weight:600;">
         <span style="color:#2563eb; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#2563eb; display:inline-block; border-radius:50%;"></span> 일별 노쇼율(%)</span>
         <span style="color:#f59e0b; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#f59e0b; display:inline-block; border-radius:50%;"></span> 5일 이동평균 (MA5)</span>
@@ -30,6 +35,30 @@
     </div>
     <div style="height:400px; position:relative;">
       <canvas id="cStock"></canvas>
+    </div>
+
+    <!-- Collapsible AI Data Analysis Insight Panel -->
+    <div id="dailyInsightPanel" style="display:none; margin-top:16px; padding:16px 18px; background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:12px; font-size:14px; color:#1e3a8a; line-height:1.65; animation:fadeIn 0.3s ease;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #dbeafe; padding-bottom:8px;">
+        <h4 style="margin:0; font-size:16px; color:#1e40af; display:flex; align-items:center; gap:6px;">
+          📊 일자별 노쇼율 및 추세 AI 분석 리포트
+        </h4>
+        <span style="font-size:12px; color:#3b82f6; font-weight:600;">분석 범위: 2016-04-29 ~ 2016-06-08 (27개 진료일)</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
+        <div style="background:#ffffff; padding:12px; border-radius:8px; border:1px solid #dbeafe;">
+          <b style="color:#1d4ed8; font-size:14px; display:block; margin-bottom:4px;">1. 일별 노쇼율 변동성 (12.85% ~ 23.33%)</b>
+          일별 노쇼율은 최저 <b>12.85%</b>(5월 14일)에서 최고 <b>23.33%</b>(5월 4일/18일) 사이를 왕복하며, 수요일 주중에 노쇼 스파이크가 발생하는 주간 주기성을 나타냅니다.
+        </div>
+        <div style="background:#ffffff; padding:12px; border-radius:8px; border:1px solid #dbeafe;">
+          <b style="color:#d97706; font-size:14px; display:block; margin-bottom:4px;">2. 5일 이동평균선(MA5) 추세 밴드 (19.5% ~ 21.0%)</b>
+          5일 이동평균선 노쇼율은 약 <b>19.5% ~ 21.0%</b>의 매우 안정적인 추세 밴드를 유지하며, 단기 변동성에도 불구하고 평균 노쇼율(20.2%) 근처로 귀환하는 수렴 경향을 보입니다.
+        </div>
+        <div style="background:#ffffff; padding:12px; border-radius:8px; border:1px solid #dbeafe;">
+          <b style="color:#475569; font-size:14px; display:block; margin-bottom:4px;">3. 예약 건수(Volume)와 노쇼율의 관계</b>
+          일일 예약 건수가 4,000건 이상 몰리는 날(5월 2일, 5월 16일 등)에도 노쇼율은 폭증하지 않고 19~20%로 안정 유지되어, 환자 몰림보다 **선행일수/요일**이 노쇼 결정의 주원인임을 입증합니다.
+        </div>
+      </div>
     </div>
   </section>
 
