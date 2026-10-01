@@ -15,6 +15,24 @@
 </header>
 <main>
   <section class="kpis" id="kpis"></section>
+
+  <!-- Stock Style Chart Section -->
+  <section class="card wide stock-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+      <h2 style="margin:0; font-size:20px; color:#010736; display:flex; align-items:center; gap:8px;">
+        📈 일자별 노쇼율 & 예약 거래량 주식 추세 차트 <small style="font-size:13px; color:#64748b;">(5일 이동평균선 MA5 연동)</small>
+      </h2>
+      <div style="display:flex; gap:12px; font-size:13px; font-weight:600;">
+        <span style="color:#2563eb; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#2563eb; display:inline-block; border-radius:50%;"></span> 일별 노쇼율(%)</span>
+        <span style="color:#f59e0b; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#f59e0b; display:inline-block; border-radius:50%;"></span> 5일 이동평균 (MA5)</span>
+        <span style="color:#94a3b8; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#94a3b8; display:inline-block; border-radius:2px;"></span> 예약 거래량(건)</span>
+      </div>
+    </div>
+    <div style="height:400px; position:relative;">
+      <canvas id="cStock"></canvas>
+    </div>
+  </section>
+
   <section class="grid">
     <article class="card"><h2>예약 리드타임별 노쇼율</h2><canvas id="cLead"></canvas>
       <p class="note">당일 예약은 4.7% 수준이나, 선행일수가 길수록 노쇼율이 높게 오릅니다.</p></article>

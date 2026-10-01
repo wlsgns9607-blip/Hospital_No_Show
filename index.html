@@ -3,24 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>병원 노쇼 분석 대시보드</title>
+<title>병원 노쇼(No-show) 분석 대시보드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
-<header><h1>병원 노쇼(No-show) 분석</h1><p>예약 110,521건 · SQLite + Python API 기반</p></header>
+<header>
+  <h1>🏥 병원 노쇼(No-show) 분석 대시보드</h1>
+  <p>총 예약 110,521건 · SQLite + Python API 기반</p>
+</header>
 <main>
   <section class="kpis" id="kpis"></section>
+
+  <!-- Stock Style Chart Section -->
+  <section class="card wide stock-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+      <h2 style="margin:0; font-size:20px; color:#010736; display:flex; align-items:center; gap:8px;">
+        📈 일자별 노쇼율 & 예약 거래량 주식 추세 차트 <small style="font-size:13px; color:#64748b;">(5일 이동평균선 MA5 연동)</small>
+      </h2>
+      <div style="display:flex; gap:12px; font-size:13px; font-weight:600;">
+        <span style="color:#2563eb; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#2563eb; display:inline-block; border-radius:50%;"></span> 일별 노쇼율(%)</span>
+        <span style="color:#f59e0b; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#f59e0b; display:inline-block; border-radius:50%;"></span> 5일 이동평균 (MA5)</span>
+        <span style="color:#94a3b8; display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#94a3b8; display:inline-block; border-radius:2px;"></span> 예약 거래량(건)</span>
+      </div>
+    </div>
+    <div style="height:400px; position:relative;">
+      <canvas id="cStock"></canvas>
+    </div>
+  </section>
+
   <section class="grid">
-    <article class="card"><h2>예약 선행일수별 노쇼율</h2><canvas id="cLead"></canvas>
-      <p class="note">당일 예약은 4.7%로 낮고, 선행일수가 길수록 노쇼율이 크게 오릅니다.</p></article>
+    <article class="card"><h2>예약 리드타임별 노쇼율</h2><canvas id="cLead"></canvas>
+      <p class="note">당일 예약은 4.7% 수준이나, 선행일수가 길수록 노쇼율이 높게 오릅니다.</p></article>
     <article class="card"><h2>연령대별 노쇼율</h2><canvas id="cAge"></canvas>
-      <p class="note">10~30대가 높고 60세 이상이 가장 낮습니다.</p></article>
+      <p class="note">10~30대가 높고 60대 이상이 가장 낮습니다.</p></article>
     <article class="card wide"><h2>선행일수 × SMS 발송 여부별 노쇼율</h2><canvas id="cSms"></canvas>
-      <p class="note">전체로 보면 SMS 수신자의 노쇼율이 높아 보이지만, 선행일수를 맞춰 비교하면 SMS 발송군이 오히려 낮습니다(발송이 긴 선행 예약에 몰린 영향).</p></article>
+      <p class="note">전체로 보면 SMS 수신자의 노쇼율이 높아 보이지만, 선행일수에 맞춰 비교하면 SMS 발송군의 노쇼율이 확연히 낮습니다.</p></article>
     <article class="card"><h2>요일별 노쇼율</h2><canvas id="cDay"></canvas></article>
     <article class="card"><h2>성별 예약 비중</h2><canvas id="cGender"></canvas></article>
-    <article class="card wide"><h2>노쇼율 높은 지역 TOP 12 <small>(예약 300건 이상)</small></h2><canvas id="cNeigh"></canvas></article>
+    <article class="card wide">
+      <h2>🚩 노쇼율 높은 지역 TOP 12 <small>(예약 300건 이상)</small></h2>
+      <div style="height: 480px; position: relative;">
+        <canvas id="cNeigh"></canvas>
+      </div>
+    </article>
   </section>
 </main>
 <script src="app.js"></script>

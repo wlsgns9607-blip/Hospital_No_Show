@@ -37,3 +37,8 @@ SELECT neighbourhood AS label, COUNT(*) AS total,
 FROM appointments GROUP BY neighbourhood
 HAVING COUNT(*) >= 300
 ORDER BY rate DESC LIMIT 12;
+
+-- name: by_date
+SELECT appointment_day AS label, COUNT(*) AS total, SUM(no_show) AS noshow,
+       ROUND(100.0*SUM(no_show)/COUNT(*),2) AS rate
+FROM appointments GROUP BY appointment_day ORDER BY appointment_day;
