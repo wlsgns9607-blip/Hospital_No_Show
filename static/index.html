@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>병원 노쇼(No-show) 분석 대시보드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>🏥 병원 노쇼(No-show) 분석 대시보드</h1>
+  <p>총 예약 110,521건 · SQLite + Python API 기반</p>
+</header>
+<main>
+  <section class="kpis" id="kpis"></section>
+  <section class="grid">
+    <article class="card"><h2>예약 리드타임별 노쇼율</h2><canvas id="cLead"></canvas>
+      <p class="note">당일 예약은 4.7% 수준이나, 선행일수가 길수록 노쇼율이 높게 오릅니다.</p></article>
+    <article class="card"><h2>연령대별 노쇼율</h2><canvas id="cAge"></canvas>
+      <p class="note">10~30대가 높고 60대 이상이 가장 낮습니다.</p></article>
+    <article class="card wide"><h2>선행일수 × SMS 발송 여부별 노쇼율</h2><canvas id="cSms"></canvas>
+      <p class="note">전체로 보면 SMS 수신자의 노쇼율이 높아 보이지만, 선행일수에 맞춰 비교하면 SMS 발송군의 노쇼율이 확연히 낮습니다.</p></article>
+    <article class="card"><h2>요일별 노쇼율</h2><canvas id="cDay"></canvas></article>
+    <article class="card"><h2>성별 예약 비중</h2><canvas id="cGender"></canvas></article>
+    <article class="card wide">
+      <h2>🚩 노쇼율 높은 지역 TOP 12 <small>(예약 300건 이상)</small></h2>
+      <div style="height: 480px; position: relative;">
+        <canvas id="cNeigh"></canvas>
+      </div>
+    </article>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
