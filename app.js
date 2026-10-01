@@ -54,7 +54,6 @@ function bar(id, labels, data, color, opts = {}) {
   });
 }
 
-// Calculate N-day Moving Average (MA)
 function calcMA(data, windowSize = 5) {
   return data.map((val, idx, arr) => {
     if (idx < windowSize - 1) return null;
@@ -106,7 +105,7 @@ function renderStockChart(byDateData) {
         },
         {
           type: 'bar',
-          label: '\uC608\uC57D \uAC70\uB798\uB7C9(\uAC74)',
+          label: '\uC608\uC57D \uAC74\uC218(\uAC74)',
           data: totals,
           backgroundColor: 'rgba(148, 163, 184, 0.35)',
           hoverBackgroundColor: 'rgba(148, 163, 184, 0.65)',
@@ -135,7 +134,7 @@ function renderStockChart(byDateData) {
               if (c.dataset.yAxisID === 'yRate') {
                 return '당일 노쇼율: ' + c.raw + '%';
               }
-              return '당일 총 예약 거래량: ' + c.raw.toLocaleString() + '건';
+              return '당일 예약 건수: ' + c.raw.toLocaleString() + '건';
             }
           }
         }
@@ -155,7 +154,7 @@ function renderStockChart(byDateData) {
         yVolume: {
           type: 'linear',
           position: 'right',
-          title: { display: true, text: '예약 거래량 (건)', color: '#64748b', font: { size: 13, weight: 'bold' } },
+          title: { display: true, text: '예약 건수 (건)', color: '#64748b', font: { size: 13, weight: 'bold' } },
           ticks: { color: '#64748b', font: { size: 12 } },
           grid: { display: false }
         }
@@ -176,7 +175,6 @@ function renderStockChart(byDateData) {
     ['\uD6C6\uADE0 \uC120\uD589\uC77C\uC218', s.avg_lead + '\uC77C'],
   ].map(([k, v]) => '<div class="kpi"><span>' + k + '</span><b>' + v + '</b></div>').join('');
 
-  // Render Stock Style Chart
   if (byDate) {
     renderStockChart(byDate);
   }
