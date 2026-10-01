@@ -1,5 +1,4 @@
 __pycache__/
 *.pyc
-noshow.db
 db/medical.csv
 .DS_Store
